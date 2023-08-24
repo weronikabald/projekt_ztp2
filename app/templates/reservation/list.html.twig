@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_reservation_list'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8">
+                <h1>{{ 'title_reservation_list'|trans }}</h1>
+            </div>
+            <div class="col-2">
+                <a href="{{ url('reservation_create') }}" class="btn btn-success">
+                    {{ 'title_reservation_create'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'label_element'|trans }}</th>
+                <th>{{ 'label_user'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_rentalDate'|trans, 'reservation.rentalDate') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_returnDate'|trans, 'reservation.returnDate') }}</th>
+                <th>{{ 'label_actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reservation in pagination.items %}
+                <tr>
+                    <td>{{ reservation.element.title                     }}</td>
+                    <td>{{ reservation.user.email                     }}</td>
+                    <td>{{ reservation.rentalDate|format_date('short')   }}</td>
+                    <td>{{ reservation.returnDate|format_date('short')   }}</td>
+                    <td>
+                        <a href="{{ url('reservation_show', {id: reservation.id}) }}" title="{{ 'action_view'|trans }}">
+                            {{ 'action_view'|trans }}
+                        </a>
+                        <a href="{{ url('reservation_return', {id: reservation.id}) }}" title="{{ 'action_return'|trans }}">
+                            {{ 'action_return'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message_empty_list'|trans
+        } %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title_log_in'|trans }}{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4 mt-5">
+        <div class="card">
+            <form class="card-body" method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <h4 class="card-title mb-4 mt-1">{{ 'label_log_in_form'|trans }}</h4>
+
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">{{ 'label_password'|trans }}</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+
+                    <button class="float-right btn btn-outline-primary" type="submit">
+                        {{ 'action_login'|trans }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-4">
+    </div>
+</div>
+
+
+{% endblock %}

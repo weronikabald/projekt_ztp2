@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_element_details'|trans({'%id%': element.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_element_details'|trans({'%id%': element.id|default('')}) }}</h1>
+    {% if element is defined and element|length %}
+        <dl class="dl-horizontal">
+
+            <dt>{{ 'label_title'|trans }}</dt>
+            <dd>{{  element.title }}</dd>
+            <dt>{{ 'label_category'|trans }}</dt>
+            <dd>{{  element.category.title }}</dd>
+            <dt>{{ 'label_description'|trans }}</dt>
+            <dd>{{  element.description }}</dd>
+            <dt>{{ 'label_authors'|trans }}</dt>
+            <dd>
+                {%  if element.authors is defined and element.authors|length %}
+                    {% for author in element.authors %}
+                       <p>
+                           {{ author.name }}
+                           {{ author.surname }}
+                       </p>
+                    {% endfor %}
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </dd>
+            <dt>{{ 'label_tags'|trans }}</dt>
+            <dd>
+                {%  if element.tags is defined and element.tags|length %}
+                        {% for tag in element.tags %}
+                            {{ tag.title }},
+                        {% endfor %}
+                {% else %}
+                        &nbsp;&nbsp;
+                {% endif %}
+            </dd>
+            <dt>{{ 'label_availability'|trans }}</dt>
+            <dd>{{  element.availability }}</dd>
+            <dt>{{ 'label_createdAt'|trans }}</dt>
+            <dd>{{  element.createdAt|format_date('long') }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('element_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'action_back_to_list'|trans }}
+            </a>
+        </p>
+    {% else %}
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message_item_not_found'|trans
+        } %}
+    {% endif %}
+{% endblock %}

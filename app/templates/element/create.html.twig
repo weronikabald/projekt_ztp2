@@ -1,0 +1,10 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title_element_create',
+    attr: {
+        method: 'POST',
+        action: url('element_create')
+    },
+    form: form,
+    submit_label: 'action_create'|trans,
+    back_to_list_path: 'element_index',
+} %}
