@@ -5,100 +5,42 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Service\CategoryService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class CategoryController.
- *
- * @Route("/category")
- */
+#[Route('/category')]
 class CategoryController extends AbstractController
 {
-    /**
-     * Category service.
-     */
     private CategoryService $categoryService;
 
-    /**
-     * CategoryController constructor.
-     *
-     * @param \App\Service\CategoryService $categoryService Category service
-     */
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
     }
 
-    /**
-     * Index action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/",
-     *     methods={"GET"},
-     *     name="category_index",
-     * )
-     */
+    #[Route('/', name: 'category_index', methods: ['GET'])]
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
         $pagination = $this->categoryService->createPaginatedList($page);
 
-        return $this->render(
-            'category/index.html.twig',
-            ['pagination' => $pagination]
-        );
+        return $this->render('category/index.html.twig', ['pagination' => $pagination]);
     }
 
-    /**
-     * Show action.
-     *
-     * @param \App\Entity\Category $category Category entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="category_show",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
+    #[Route('/{id}', name: 'category_show', methods: ['GET'], requirements: ['id' => '[1-9]\d*'])]
     public function show(Category $category): Response
     {
-        return $this->render(
-            'category/show.html.twig',
-            ['category' => $category]
-        );
+        return $this->render('category/show.html.twig', ['category' => $category]);
     }
 
-    /**
-     * Create action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/create",
-     *     methods={"GET", "POST"},
-     *     name="category_create",
-     * )
-     */
+    #[Route('/create', name: 'category_create', methods: ['GET', 'POST', 'PUT'])]
     public function create(Request $request): Response
     {
         $category = new Category();
@@ -112,32 +54,11 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->render(
-            'category/create.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->render('category/create.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * Edit action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
-     * @param \App\Entity\Category                      $category Category entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/edit",
-     *     methods={"GET", "PUT"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="category_edit",
-     * )
-     * @IsGranted ("EDIT", subject="category")
-     *
-     */
+    #[Route('/{id}/edit', name: 'category_edit', methods: ['GET', 'PUT'], requirements: ['id' => '[1-9]\d*'])]
+    #[IsGranted("EDIT", subject: "category")]
     public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(CategoryType::class, $category, ['method' => 'PUT']);
@@ -150,36 +71,11 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->render(
-            'category/edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'category' => $category,
-            ]
-        );
+        return $this->render('category/edit.html.twig', ['form' => $form->createView(), 'category' => $category]);
     }
 
-    /**
-     * Delete action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
-     * @param \App\Entity\Category                      $category Category entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/delete",
-     *     methods={"GET", "DELETE"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="category_delete",
-     * )
-     *
-     * @IsGranted ("DELETE", subject="category")
-     *
-     */
+    #[Route('/{id}/delete', name: 'category_delete', methods: ['GET', 'DELETE'], requirements: ['id' => '[1-9]\d*'])]
+    #[IsGranted("DELETE", subject: "category")]
     public function delete(Request $request, Category $category): Response
     {
         if ($category->getElements()->count()) {
@@ -202,12 +98,6 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->render(
-            'category/delete.html.twig',
-            [
-                'form' => $form->createView(),
-                'category' => $category,
-            ]
-        );
+        return $this->render('category/delete.html.twig', ['form' => $form->createView(), 'category' => $category]);
     }
 }

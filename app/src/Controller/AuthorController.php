@@ -5,201 +5,78 @@
 
 namespace App\Controller;
 
-use App\Entity\Author;
-use App\Form\AuthorType;
-use App\Service\AuthorService;
-use Doctrine\ORM\ORMException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Author;
+use App\Service\UserService; // Import the UserService class
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Form\UserPasswordType;
+use App\Form\UserEmailType;
 
-/**
- * Class AuthorController.
- *
- * @Route("/author")
- */
+#[Route('/author')]
 class AuthorController extends AbstractController
 {
-    /**
-     * Author service.
-     */
-    private AuthorService $authorService;
+    private Security $security;
+    private UserService $userService;
 
-    /**
-     * AuthorController constructor.
-     *
-     * @param \App\Service\AuthorService $authorService Author service
-     */
-    public function __construct(AuthorService $authorService)
+    public function __construct(UserService $userService, Security $security)
     {
-        $this->authorService = $authorService;
+        $this->userService = $userService;
+        $this->security = $security;
     }
 
-    /**
-     * Index.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/",
-     *     name="author_index",
-     * )
-     */
-    public function index(Request $request): Response
+    #[Route('/list', name: 'author_list', methods: ['GET'])]
+    public function list(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
-        $pagination = $this->authorService->createPaginatedList($page);
+        $pagination = $this->userService->createPaginatedList($page);
 
-        return $this->render(
-            'author/index.html.twig',
-            ['pagination' => $pagination]
-        );
+        return $this->render('author/list.html.twig', ['pagination' => $pagination]);
     }
 
-    /**
-     * Show action.
-     *
-     * @param \App\Entity\Author $author Author entity
-     *
-     * @return Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="author_show",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     *
-     * @IsGranted ("VIEW", subject="author")
-     */
-    public function show(Author $author): Response
+    #[Route('/show', name: 'author_show', methods: ['GET'])]
+    public function show(): Response
     {
-        return $this->render(
-            'author/show.html.twig',
-            ['author' => $author]
-        );
+        $author = $this->security->getUser();
+
+        return $this->render('author/show.html.twig', ['author' => $author]);
     }
 
-    /**
-     * Create action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/create",
-     *     methods={"GET", "POST"},
-     *     name="author_create",
-     * )
-     *
-     * @throws ORMException
-     */
-    public function create(Request $request): Response
+    #[Route('/{id}/edit', name: 'author_edit', methods: ['GET', 'PUT'], requirements: ['id' => '\d+'])]
+    public function edit(Request $request, Author $author, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $author = new Author();
-        $form = $this->createForm(AuthorType::class, $author);
+        $form = $this->createForm(UserPasswordType::class, $author, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->authorService->save($author);
-            $this->addFlash('success', 'message_created_successfully');
+            $password = $passwordEncoder->encodePassword($author, $author->getPassword());
+            $author->setPassword($password);
 
-            return $this->redirectToRoute('author_index');
+            $this->userService->save($author);
+
+            $this->addFlash('success', 'message_password_changed_successfully');
+
+            return $this->redirectToRoute('homepage');
         }
 
-        return $this->render(
-            'author/create.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->render('author/edit.html.twig', ['form' => $form->createView(), 'author' => $author]);
     }
 
-    /**
-     * Edit action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Author                        $author  Author entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/edit",
-     *     methods={"GET", "PUT"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="author_edit",
-     * )
-     *
-     * @IsGranted ("EDIT", subject="author")
-     */
-    public function edit(Request $request, Author $author): Response
+    #[Route('/{id}/edit_email', name: 'author_edit_email', methods: ['GET', 'PUT'], requirements: ['id' => '\d+'])]
+    public function editEmail(Request $request, Author $author): Response
     {
-        $form = $this->createForm(AuthorType::class, $author, ['method' => 'PUT']);
+        $form = $this->createForm(UserEmailType::class, $author, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->authorService->save($author);
-            $this->addFlash('success', 'message_updated_successfully');
+            $this->userService->save($author);
+            $this->addFlash('success', 'message_email_changed_successfully');
 
-            return $this->redirectToRoute('author_index');
+            return $this->redirectToRoute('homepage');
         }
 
-        return $this->render(
-            'author/edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'author' => $author,
-            ]
-        );
-    }
-
-    /**
-     * Delete action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Author                        $author  Author entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/delete",
-     *     methods={"GET", "DELETE"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="author_delete",
-     * )
-     */
-    public function delete(Request $request, Author $author): Response
-    {
-        $form = $this->createForm(FormType::class, $author, ['method' => 'DELETE']);
-        $form->handleRequest($request);
-
-        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
-            $form->submit($request->request->get($form->getName()));
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->authorService->delete($author);
-            $this->addFlash('success', 'message_deleted_successfully');
-
-            return $this->redirectToRoute('author_index');
-        }
-
-        return $this->render(
-            'author/delete.html.twig',
-            [
-                'form' => $form->createView(),
-                'author' => $author,
-            ]
-        );
+        return $this->render('author/editEmail.html.twig', ['form' => $form->createView(), 'author' => $author]);
     }
 }

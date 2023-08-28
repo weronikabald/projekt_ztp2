@@ -13,46 +13,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class UserDataController.
- *
- * @Route("/usersData")
- */
+#[Route("/usersData")]
 class UsersDataController extends AbstractController
 {
-    /**
-     * UsersData service.
-     */
     private UsersDataService $usersDataService;
 
-    /**
-     * UsersDataController constructor.
-     *
-     * @param \App\Service\UsersDataService $usersDataService UsersData service
-     */
     public function __construct(UsersDataService $usersDataService)
     {
         $this->usersDataService = $usersDataService;
     }
 
-    /**
-     * Edit action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     * @param \App\Entity\UsersData                     $usersData Users Data entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/edit",
-     *     methods={"GET", "PUT"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="usersData_edit",
-     * )
-     */
+    #[Route("/{id}/edit", methods: ["GET", "PUT"], requirements: ["id" => "[1-9]\d*"], name: "usersData_edit")]
     public function edit(Request $request, UsersData $usersData): Response
     {
         $form = $this->createForm(UsersDataType::class, $usersData, ['method' => 'PUT']);

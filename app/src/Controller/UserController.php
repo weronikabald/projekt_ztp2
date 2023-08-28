@@ -16,96 +16,36 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 
-/**
- * Class UserController.
- *
- * @Route("/user")
- */
+#[Route('/user')]
 class UserController extends AbstractController
 {
     private Security $security;
-
-    /**
-     * User service.
-     */
     private UserService $userService;
 
-    /**
-     * UserController constructor.
-     *
-     * @param \App\Service\UserService                  $userService User Service
-     * @param \Symfony\Component\Security\Core\Security $security    Security
-     */
     public function __construct(UserService $userService, Security $security)
     {
         $this->userService = $userService;
         $this->security = $security;
     }
 
-    /**
-     * List action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/list",
-     *     methods={"GET"},
-     *     name="user_list",
-     * )
-     */
+    #[Route('/list', name: 'user_list', methods: ['GET'])]
     public function list(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
         $pagination = $this->userService->createPaginatedList($page);
 
-        return $this->render(
-            'user/list.html.twig',
-            ['pagination' => $pagination]
-        );
+        return $this->render('user/list.html.twig', ['pagination' => $pagination]);
     }
 
-    /**
-     * Show current user.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/show",
-     *     methods={"GET"},
-     *     name="user_show",
-     * )
-     */
+    #[Route('/show', name: 'user_show', methods: ['GET'])]
     public function show(): Response
     {
         $user = $this->security->getUser();
 
-        return $this->render(
-            'user/show.html.twig',
-            ['user' => $user]
-        );
+        return $this->render('user/show.html.twig', ['user' => $user]);
     }
 
-    /**
-     * Edit action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Entity\User                          $user            User entity
-     * @param UserPasswordEncoderInterface              $passwordEncoder Password Encoder
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/edit",
-     *     methods={"GET", "PUT"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="user_edit",
-     * )
-     */
+    #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'PUT'], requirements: ['id' => '\d+'])]
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(UserPasswordType::class, $user, ['method' => 'PUT']);
@@ -122,31 +62,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render(
-            'user/edit.html.twig',
-            ['form' => $form->createView(),
-                'user' => $user, ]
-        );
+        return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 
-    /**
-     * Edit action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\User                          $user    User entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/{id}/edit_email",
-     *     methods={"GET", "PUT"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="user_edit_email",
-     * )
-     */
+    #[Route('/{id}/edit_email', name: 'user_edit_email', methods: ['GET', 'PUT'], requirements: ['id' => '\d+'])]
     public function editEmail(Request $request, User $user): Response
     {
         $form = $this->createForm(UserEmailType::class, $user, ['method' => 'PUT']);
@@ -159,10 +78,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render(
-            'user/editEmail.html.twig',
-            ['form' => $form->createView(),
-                'user' => $user, ]
-        );
+        return $this->render('user/editEmail.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 }
+
