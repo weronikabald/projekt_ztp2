@@ -9,11 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Author;
-use App\Service\UserService; // Import the UserService class
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Form\UserPasswordType;
-use App\Form\UserEmailType;
 
 #[Route('/author')]
 class AuthorController extends AbstractController
