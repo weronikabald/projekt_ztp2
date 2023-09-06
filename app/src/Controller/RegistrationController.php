@@ -6,49 +6,87 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\UsersData;
-use App\Form\RegistrationType;
-use App\Service\RegistrationService;
+use App\Form\Type\RegistrationType;
+use App\Security\LoginFormAuthenticator;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route("/register")]
+/**
+ * Class RegistrationController.
+ */
 class RegistrationController extends AbstractController
 {
+    /**
+     * User service.
+     */
     private UserService $userService;
-    private RegistrationService $registrationService;
 
-    public function __construct(RegistrationService $registrationService, UserService $userService)
+    /**
+     * Translator.
+     */
+    private TranslatorInterface $translator;
+
+    /**
+     * RegistrationController constructor.
+     *
+     * @param UserService         $userService User service
+     * @param TranslatorInterface $translator  Translator
+     */
+    public function __construct(UserService $userService, TranslatorInterface $translator)
     {
-        $this->registrationService = $registrationService;
         $this->userService = $userService;
+        $this->translator = $translator;
     }
 
-    #[Route("/", name: "app_register", methods: ["GET", "POST"])]
-    public function create(Request $request): Response
+    /**
+     * Register action.
+     *
+     * @param Request                    $request           HTTP request
+     * @param UserAuthenticatorInterface $userAuthenticator Authenticator
+     * @param LoginFormAuthenticator     $authenticator     Login form authenticator
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/register',
+        name: 'app_register',
+        methods: [
+            'GET',
+            'POST',
+        ],
+    )]
+    public function register(Request $request, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator): Response
     {
         $user = new User();
-        $usersData = new UsersData();
-        $form = $this->createForm(RegistrationType::class);
+        $form = $this->createForm(
+            RegistrationType::class,
+            $user,
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $this->userService->save($user, $form->get('password')->getData());
 
-            if ($this->userService->findOneBy($data['email']) !== null) {
-                $this->addFlash('danger', 'message_email_already_exists');
-                return $this->redirectToRoute('app_register');
-            }
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.registered_successfully')
+            );
 
-            $this->registrationService->register($data, $user, $usersData);
-            $this->addFlash('success', 'message_registered_successfully');
-
-            return $this->redirectToRoute('homepage');
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request,
+            );
         }
 
-        return $this->render('registration/index.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'registration/register.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 }

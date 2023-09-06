@@ -1,36 +1,45 @@
 <?php
 /**
- * Category fixture.
+ * Category fixtures.
  */
 
 namespace App\DataFixtures;
 
 use App\Entity\Category;
-use Doctrine\Persistence\ObjectManager;
 
 /**
  * Class CategoryFixtures.
+ *
+ * @psalm-suppress MissingConstructor
  */
 class CategoryFixtures extends AbstractBaseFixtures
 {
     /**
      * Load data.
      *
-     * @param ObjectManager $manager Object manager
+     * @psalm-suppress PossiblyNullReference
+     * @psalm-suppress UnusedClosureParam
      */
-    public function loadData(ObjectManager $manager): void
+    public function loadData(): void
     {
-        $this->createMany(
-            20,
-            'categories',
-            function ($i) {
-                $category = new Category();
-                $category->setTitle($this->faker->word);
+        $this->createMany(20, 'categories', function (int $i) {
+            $category = new Category();
+            $category->setTitle($this->faker->unique()->word);
+            $category->setCreatedAt(
+                \DateTimeImmutable::createFromMutable(
+                    $this->faker->dateTimeBetween('-100 days', '-1 days')
+                )
+            );
+            $category->setUpdatedAt(
+                \DateTimeImmutable::createFromMutable(
+                    $this->faker->dateTimeBetween('-100 days', '-1 days')
+                )
+            );
+            $category->setSlug($this->faker->unique()->word);
 
-                return $category;
-            }
-        );
+            return $category;
+        });
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }

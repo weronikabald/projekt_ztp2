@@ -6,79 +6,164 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserEmailType;
-use App\Form\UserPasswordType;
-use App\Service\UserService;
+use App\Form\Type\UserDataType;
+use App\Form\Type\UserPasswordType;
+use App\Service\UserServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class UserController.
+ */
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    private Security $security;
-    private UserService $userService;
+    /**
+     * User service.
+     */
+    private UserServiceInterface $userService;
 
-    public function __construct(UserService $userService, Security $security)
+    /**
+     * Translator.
+     */
+    private TranslatorInterface $translator;
+
+    /**
+     * UserController constructor.
+     *
+     * @param UserServiceInterface $userService User service
+     * @param TranslatorInterface  $translator  Translator
+     */
+    public function __construct(UserServiceInterface $userService, TranslatorInterface $translator)
     {
+        $this->translator = $translator;
         $this->userService = $userService;
-        $this->security = $security;
     }
 
-    #[Route('/list', name: 'user_list', methods: ['GET'])]
-    public function list(Request $request): Response
+    /**
+     * Show action.
+     *
+     * @param User $user User entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/{id}',
+        name: 'user_show',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET',
+    )]
+    #[IsGranted('VIEW')]
+    public function show(User $user): Response
     {
-        $page = $request->query->getInt('page', 1);
-        $pagination = $this->userService->createPaginatedList($page);
-
-        return $this->render('user/list.html.twig', ['pagination' => $pagination]);
+        return $this->render(
+            'user/show.html.twig',
+            ['user' => $user]
+        );
     }
 
-    #[Route('/show', name: 'user_show', methods: ['GET'])]
-    public function show(): Response
+    /**
+     * Edit password action.
+     *
+     * @param Request $request HTTP request
+     * @param User    $user    User entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/{id}/edit-password',
+        name: 'user_edit_password',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET|PUT',
+    )]
+    #[IsGranted('EDIT')]
+    public function editPassword(Request $request, User $user): Response
     {
-        $user = $this->security->getUser();
+        $form = $this->createForm(
+            UserPasswordType::class,
+            $user,
+            [
+                'method' => 'PUT',
+                'action' => $this->generateUrl(
+                    'user_edit_password',
+                    ['id' => $user->getId()],
+                ),
+            ]
+        );
 
-        return $this->render('user/show.html.twig', ['user' => $user]);
-    }
-
-    #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'PUT'], requirements: ['id' => '\d+'])]
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
-        $form = $this->createForm(UserPasswordType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+            $this->userService->upgradePassword($user, $form->get('password')->getData());
 
-            $this->userService->save($user);
-
-            $this->addFlash('success', 'message_password_changed_successfully');
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.updated_successfully')
+            );
 
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        return $this->render(
+            'user/edit_password.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
     }
 
-    #[Route('/{id}/edit_email', name: 'user_edit_email', methods: ['GET', 'PUT'], requirements: ['id' => '\d+'])]
-    public function editEmail(Request $request, User $user): Response
+    /**
+     * Edit action.
+     *
+     * @param Request $request HTTP request
+     * @param User    $user    User entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/{id}/edit',
+        name: 'user_edit',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET|PUT',
+    )]
+    #[IsGranted('EDIT')]
+    public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserEmailType::class, $user, ['method' => 'PUT']);
+        $form = $this->createForm(
+            UserDataType::class,
+            $user,
+            [
+                'method' => 'PUT',
+                'action' => $this->generateUrl(
+                    'user_edit',
+                    ['id' => $user->getId()],
+                ),
+            ]
+        );
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userService->save($user);
-            $this->addFlash('success', 'message_email_changed_successfully');
+            $this->userService->editData($user);
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.updated_successfully')
+            );
 
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('user/editEmail.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        return $this->render(
+            'user/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
     }
 }
-
