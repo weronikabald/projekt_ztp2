@@ -7,9 +7,7 @@ namespace App\Service;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
-use App\Repository\PostRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -24,11 +22,6 @@ class CategoryService implements CategoryServiceInterface
     private CategoryRepository $categoryRepository;
 
     /**
-     * Post repository.
-     */
-    private PostRepository $postRepository;
-
-    /**
      * Paginator.
      */
     private PaginatorInterface $paginator;
@@ -38,12 +31,10 @@ class CategoryService implements CategoryServiceInterface
      *
      * @param CategoryRepository $categoryRepository Category repository
      * @param PaginatorInterface $paginator          Paginator
-     * @param PostRepository     $postRepository     Post repository
      */
-    public function __construct(CategoryRepository $categoryRepository, PaginatorInterface $paginator, PostRepository $postRepository)
+    public function __construct(CategoryRepository $categoryRepository, PaginatorInterface $paginator)
     {
         $this->categoryRepository = $categoryRepository;
-        $this->postRepository = $postRepository;
         $this->paginator = $paginator;
     }
 
@@ -60,23 +51,6 @@ class CategoryService implements CategoryServiceInterface
             $this->categoryRepository->queryAll(),
             $page,
             CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-    }
-
-    /**
-     * Get paginated list by category.
-     *
-     * @param int      $page     Page number
-     * @param Category $category Category entity
-     *
-     * @return PaginationInterface<string, mixed> Paginated list
-     */
-    public function createPostByCategoryPaginatedList(int $page, Category $category): PaginationInterface
-    {
-        return $this->paginator->paginate(
-            $this->postRepository->queryByCategory($category),
-            $page,
-            PostRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
 
@@ -98,23 +72,6 @@ class CategoryService implements CategoryServiceInterface
     public function delete(Category $category): void
     {
         $this->categoryRepository->delete($category);
-    }
-
-    /**
-     * Can Category be deleted?
-     *
-     * @param Category $category Category entity
-     *
-     * @return bool Result
-     *
-     * @throws NonUniqueResultException
-     * @throws NoResultException
-     */
-    public function canBeDeleted(Category $category): bool
-    {
-        $result = $this->postRepository->countByCategory($category);
-
-        return !($result > 0);
     }
 
     /**

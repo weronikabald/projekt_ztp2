@@ -8,7 +8,9 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Service\CategoryServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -81,16 +83,10 @@ class CategoryController extends AbstractController
     )]
     public function show(Category $category, Request $request): Response
     {
-        $postByCategoryPagedList = $this->categoryService->createPostByCategoryPaginatedList(
-            $request->query->getInt('page', 1),
-            $category
-        );
-
         return $this->render(
             'category/show.html.twig',
             [
                 'category' => $category,
-                'pagination' => $postByCategoryPagedList,
             ]
         );
     }
@@ -198,7 +194,7 @@ class CategoryController extends AbstractController
         if (!$this->categoryService->canBeDeleted($category)) {
             $this->addFlash(
                 'warning',
-                $this->translator->trans('message.category_contains_posts')
+                $this->translator->trans('message.category_contains_elements')
             );
 
             return $this->redirectToRoute('category_index');

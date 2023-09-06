@@ -1,58 +1,37 @@
-{#
-    Navbar.
-#}
+<nav class="mb-2 py-3 bg-primary">
+    <ul class="nav justify-content-start">
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{{ path('homepage') }}">
+                {{ 'title.homepage'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{{ path('category_index') }}">
+                {{ 'title.category_list'|trans }}
+            </a>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ path('user_show', {'id': app.user.id}) }}"
+                   title="{{ 'title.user_profile'|trans }}">
+                    {{ 'title.user_profile'|trans }}
+                </a>
+            </li>
+        {% endif %}
 
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <a href="{{ url('homepage') }}" class="navbar-brand">
-            {{ 'title_rental_app'|trans }}
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="true" aria-label="Toggle navigation">
-             <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarsExample04">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="{{ url('element_index') }}" class="nav-link" title="{{ 'title_element_list'|trans }}">
-                        {{ 'title_element_list'|trans }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('reservation_user') }}" class="nav-link" title="{{ 'title_reservation_list'|trans }}">
-                        {{ 'title_reservation_list'|trans }}
-                    </a>
-                </li>
-                    {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item">
-                    <a href="{{ url('admin_panel') }}" class="nav-link" title="{{ 'admin_panel'|trans }}">
-                        {{ 'admin_panel'|trans }}
-                    </a>
-                </li>
-                {% endif %}
-                    {% if is_granted('ROLE_USER') %}
-                <li class="nav-item">
-                    <a href="{{url('user_show') }}" class="nav-link" title="{{ 'user_account'|trans }}">
-                        {{ 'user_account'|trans }}
-                    </a>
-                </li>
-                {% endif %}
-                <li class="nav-item">
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                                <a href="{{ url('app_logout') }}" class="nav-link" title="{{ 'action_logout'|trans }}">
-                                    {{ 'action_logout'|trans }}
-                                </a>
-                        {% else %}
-                                <a href="{{ url('app_login') }}" class="nav-link" title="{{ 'action_login'|trans }}">
-                                    {{ 'action_login'|trans }}
-                                </a>
-
-                </li>
-                <li>
-                                 <a href="{{ url('app_register') }}" class="nav-link" title="{{ 'action_login'|trans }}">
-                                     {{ 'action_register'|trans }}
-                                 </a>
-
-                        {% endif %}
-                </li>
-            </ul>
-        </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ path('app_logout') }}">
+                    {{ 'action.logout'|trans }}
+                </a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ url('app_login') }}">{{ 'action.login'|trans }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ url('app_register') }}">{{ 'action.register'|trans }}</a>
+            </li>
+        {% endif %}
+    </ul>
 </nav>

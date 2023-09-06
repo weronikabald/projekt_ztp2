@@ -1,38 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_category_details'|trans({'%id%': category.id|default('')}) }}
+    {{ 'title.category_details'|trans({'%id%': category.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_category_details'|trans({'%id%': category.id|default('')}) }}</h1>
+    <h1>{{ category.title }}</h1>
     {% if category is defined and category|length %}
         <dl class="dl-horizontal">
-            <dt>{{ 'label_title'|trans }}</dt>
-            <dd>{{  category.title }}</dd>
-            <dt>{{ 'label_elements'|trans }}</dt>
-            <dd>
-                {%  if category.elements is defined and category.elements|length %}
-                    {% for element in category.elements %}
-                        <p>
-                            {{ element.title }}
-                        </p>
-                    {% endfor %}
-                {% else %}
-                    &nbsp;&nbsp;
-                {% endif %}
-            </dd>
+            <dt>{{ 'label.created_at'|trans }}</dt>
+            <dd>{{ category.createdAt|format_date('short') }}</dd>
+            <dt>{{ 'label.updated_at'|trans }}</dt>
+            <dd>{{ category.updatedAt|format_date('short') }}</dd>
         </dl>
         <p>
-            <a href="{{ url('category_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                {{ 'action_back_to_list'|trans }}
+            <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'action.back_to_list'|trans }}
             </a>
         </p>
-
     {% else %}
-        {% include 'default/_single_flash_message.html.twig' with {
-            type: 'warning',
-            message: 'message_item_not_found'|trans
-        } %}
+        <p>
+            {{ 'message.record_not_found'|trans }}
+        </p>
     {% endif %}
 {% endblock %}
