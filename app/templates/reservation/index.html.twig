@@ -36,7 +36,7 @@
                             {{ 'action.view'|trans }}
                         </a>
                         {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ url('reservation_edit', {id: reservation.id}) }}" title="{{ 'action.edit'|trans }}">
+                        <a href="{{ url('reservation_accept', {id: reservation.id}) }}" title="{{ 'action.edit'|trans }}">
                             {{ 'action.edit'|trans }}
                         </a>
                         <a href="{{ url('reservation_delete', {id: reservation.id}) }}" title="{{ 'action.delete'|trans }}">

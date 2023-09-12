@@ -41,6 +41,9 @@
                         <a href="{{ url('element_show', {id: element.id}) }}" title="{{ 'action.view'|trans }}">
                             {{ 'action.view'|trans }}
                         </a>
+                        <a href="{{ url('reservation_create', {id: element.id}) }}" title="{{ 'action.create'|trans }}">
+                            {{ 'action.create'|trans }}
+                        </a>
                         {% if is_granted('ROLE_ADMIN') %}
 
                             <a href="{{ url('element_edit', {id: element.id}) }}" title="{{ 'action.edit'|trans }}">

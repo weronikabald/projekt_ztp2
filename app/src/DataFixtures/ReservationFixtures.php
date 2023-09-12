@@ -35,7 +35,7 @@ class ReservationFixtures extends AbstractBaseFixtures implements DependentFixtu
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );
-            $reservation->setStatus(ReservationStatusEnum::STATUS_NEW->value);
+            $reservation->setStatus('new');
 
             /** @var Element $element */
             $element = $this->getRandomReference('elements');

@@ -17,7 +17,7 @@
             <dt>{{ 'label.nickname'|trans }}</dt>
             <dd>{{ reservation.nickname }}</dd>
             <dt>{{ 'label.comment'|trans }}</dt>
-            <dd>{{  reservation.comment }}</dd>
+            <dd>{{ reservation.comment }}</dd>
             <dt>{{ 'label.status'|trans }}</dt>
             <dd>{{ reservation.status|trans }}</dd>
         </dl>
@@ -25,6 +25,17 @@
             <a href="{{ url('reservation_index') }}" title="{{ 'action.back_to_list'|trans }}">
                 {{ 'action.back_to_list'|trans }}
             </a>
+            <a href="{{ url('reservation_accept', {id: reservation.id}) }}" title="{{ 'action.accept'|trans }}">
+                {{ 'action.accept'|trans }}
+            </a>
+            <a href="{{ url('reservation_return', {id: reservation.id}) }}" title="{{ 'action.return'|trans }}">
+                {{ 'action.return'|trans }}
+            </a>
+            <a href="{{ url('reservation_delete', {id: reservation.id}) }}" title="{{ 'action.delete'|trans }}">
+                {{ 'action.delete'|trans }}
+            </a>
+
+
         </p>
     {% else %}
         <p>

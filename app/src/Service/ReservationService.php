@@ -71,6 +71,7 @@ class ReservationService implements ReservationServiceInterface
     {
         $element = $this->elementRepository->findOneBy(['id' => $elementId]);
         $reservation->setElement($element);
+        $reservation->setStatus('new');
         $this->reservationRepository->save($reservation);
     }
 
