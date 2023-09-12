@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.reservation_details'|trans({'%id%': reservation.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.reservation_details'|trans({'%id%': reservation.id|default('')}) }}</h1>
+    {% if reservation is defined and reservation|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.created_at'|trans }}</dt>
+            <dd>{{ reservation.createdAt|format_date('short') }}</dd>
+            <dt>{{ 'label.updated_at'|trans }}</dt>
+            <dd>{{ reservation.updatedAt|format_date('short') }}</dd>
+            <dt>{{ 'label.email'|trans }}</dt>
+            <dd>{{ reservation.email }}</dd>
+            <dt>{{ 'label.nickname'|trans }}</dt>
+            <dd>{{ reservation.nickname }}</dd>
+            <dt>{{ 'label.comment'|trans }}</dt>
+            <dd>{{  reservation.comment }}</dd>
+            <dt>{{ 'label.status'|trans }}</dt>
+            <dd>{{ reservation.status|trans }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('reservation_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'action.back_to_list'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message.record_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

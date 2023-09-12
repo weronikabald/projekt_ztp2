@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.element_details'|trans({'%id%': element.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ element.title }}</h1>
+    {% if element is defined and element|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.created_at'|trans }}</dt>
+            <dd>{{ element.createdAt|format_date('short') }}</dd>
+            <dt>{{ 'label.updated_at'|trans }}</dt>
+            <dd>{{ element.updatedAt|format_date('short') }}</dd>
+            <dt>{{ 'label.stock'|trans }}</dt>
+            <dd>{{ element.stock }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('element_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'action.back_to_list'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message.record_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
