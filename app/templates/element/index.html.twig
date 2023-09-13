@@ -27,6 +27,8 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'element.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'element.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'element.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
+
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -37,6 +39,7 @@
                     <td>{{ element.createdAt|format_date('long') }}</td>
                     <td>{{ element.updatedAt|format_date('long') }}</td>
                     <td>{{ element.title }}</td>
+                    <td>{{ element.category.title }}</td>
                     <td>
                         <a href="{{ url('element_show', {id: element.id}) }}" title="{{ 'action.view'|trans }}">
                             {{ 'action.view'|trans }}

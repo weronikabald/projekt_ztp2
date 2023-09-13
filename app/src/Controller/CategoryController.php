@@ -91,10 +91,16 @@ class CategoryController extends AbstractController
     )]
     public function show(Category $category, Request $request): Response
     {
+        $elementByCategoryPagedList = $this->categoryService->getElementByCategory(
+            $request->query->getInt('page', 1),
+            $category
+        );
+
         return $this->render(
             'category/show.html.twig',
             [
                 'category' => $category,
+                'pagination' => $elementByCategoryPagedList,
             ]
         );
     }

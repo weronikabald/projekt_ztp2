@@ -7,6 +7,7 @@ namespace App\Service;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use App\Repository\ElementRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -22,6 +23,11 @@ class CategoryService implements CategoryServiceInterface
     private CategoryRepository $categoryRepository;
 
     /**
+     * Element repository.
+     */
+    private ElementRepository $elementRepository;
+
+    /**
      * Paginator.
      */
     private PaginatorInterface $paginator;
@@ -30,11 +36,13 @@ class CategoryService implements CategoryServiceInterface
      * CategoryService constructor.
      *
      * @param CategoryRepository $categoryRepository Category repository
+     * @param ElementRepository  $elementRepository  Element repository
      * @param PaginatorInterface $paginator          Paginator
      */
-    public function __construct(CategoryRepository $categoryRepository, PaginatorInterface $paginator)
+    public function __construct(CategoryRepository $categoryRepository, ElementRepository $elementRepository, PaginatorInterface $paginator)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->elementRepository = $elementRepository;
         $this->paginator = $paginator;
     }
 
@@ -86,5 +94,22 @@ class CategoryService implements CategoryServiceInterface
     public function findOneById(int $id): ?Category
     {
         return $this->categoryRepository->findOneById($id);
+    }
+
+    /**
+     * Get element by category.
+     *
+     * @param int      $getInt   Get int
+     * @param Category $category Category entity
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function getElementByCategory(int $getInt, Category $category): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->elementRepository->queryByCategory($category),
+            $getInt,
+            CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
     }
 }
