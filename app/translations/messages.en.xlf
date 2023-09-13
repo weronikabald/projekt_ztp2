@@ -274,6 +274,18 @@
                 <source>accepted</source>
                 <target>Accepted</target>
             </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="label.repeat_password">
+                <source>label.repeat_password</source>
+                <target>Repeat Password</target>
+            </trans-unit>
+            <trans-unit id="label.none">
+                <source>label.none</source>
+                <target>Choose</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

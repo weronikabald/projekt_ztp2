@@ -147,6 +147,154 @@
                 <source>action.return</source>
                 <target>Zwróć</target>
             </trans-unit>
+            <trans-unit id="message.record_not_found">
+                <source>message.record_not_found</source>
+                <target>Rekord nie znaleziony.</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_delete">
+                <source>title.reservation_delete</source>
+                <target>Usuń rezerwację</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_create">
+                <source>title.reservation_create</source>
+                <target>Utwórz rezerwację</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_return">
+                <source>title.reservation_return</source>
+                <target>Zwróć rezerwację</target>
+            </trans-unit>
+            <trans-unit id="action.create">
+                <source>action.create</source>
+                <target>Utwórz</target>
+            </trans-unit>
+            <trans-unit id="label.id">
+                <source>label.id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="label.title">
+                <source>label.title</source>
+                <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="title.element_details">
+                <source>title.element_details</source>
+                <target>Szczegóły elementu</target>
+            </trans-unit>
+            <trans-unit id="label.stock">
+                <source>label.stock</source>
+                <target>Stan magazynowy</target>
+            </trans-unit>
+            <trans-unit id="title.element_delete">
+                <source>title.element_delete</source>
+                <target>Usuń element</target>
+            </trans-unit>
+            <trans-unit id="title.element_edit">
+                <source>title.element_edit</source>
+                <target>Edytuj element</target>
+            </trans-unit>
+            <trans-unit id="title.element_create">
+                <source>title.element_create</source>
+                <target>Utwórz element</target>
+            </trans-unit>
+            <trans-unit id="message.log_in">
+                <source>message.log_in</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="message.logged_in_as">
+                <source>message.logged_in_as</source>
+                <target>Zalogowany jako</target>
+            </trans-unit>
+            <trans-unit id="message.please_sign_in">
+                <source>message.please_sign_in</source>
+                <target>Proszę się zalogować</target>
+            </trans-unit>
+            <trans-unit id="title.email">
+                <source>title.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="message.password">
+                <source>message.password</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="action.sign_in">
+                <source>action.sign_in</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="title.register">
+                <source>title.register</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="title.user_passsword_edit">
+                <source>title.user_passsword_edit</source>
+                <target>Edytuj hasło użytkownika</target>
+            </trans-unit>
+            <trans-unit id="title.user_details">
+                <source>title.user_details</source>
+                <target>Szczegóły użytkownika</target>
+            </trans-unit>
+            <trans-unit id="label.firstName">
+                <source>label.firstName</source>
+                <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="label.lastName">
+                <source>label.lastName</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="action.edit_password">
+                <source>action.edit_password</source>
+                <target>Edytuj hasło</target>
+            </trans-unit>
+            <trans-unit id="title.user_edit">
+                <source>title.user_edit</source>
+                <target>Edytuj użytkownika</target>
+            </trans-unit>
+            <trans-unit id="title.category_details">
+                <source>title.category_details</source>
+                <target>Szczegóły kategorii</target>
+            </trans-unit>
+            <trans-unit id="title.category_delete">
+                <source>title.category_delete</source>
+                <target>Usuń kategorię</target>
+            </trans-unit>
+            <trans-unit id="title.category_edit">
+                <source>title.category_edit</source>
+                <target>Edytuj kategorię</target>
+            </trans-unit>
+            <trans-unit id="title.category_create">
+                <source>title.category_create</source>
+                <target>Utwórz kategorię</target>
+            </trans-unit>
+            <trans-unit id="returned">
+                <source>returned</source>
+                <target>Zwrócona</target>
+            </trans-unit>
+            <trans-unit id="new">
+                <source>new</source>
+                <target>Nowa</target>
+            </trans-unit>
+            <trans-unit id="accepted">
+                <source>accepted</source>
+                <target>Zaakceptowana</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="label.repeat_password">
+                <source>label.repeat_password</source>
+                <target>Powtórz Hasło</target>
+            </trans-unit>
+            <trans-unit id="label.none">
+                <source>label.none</source>
+                <target>Wybierz</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
