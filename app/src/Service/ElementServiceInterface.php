@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Entity\Element;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
@@ -37,4 +38,11 @@ interface ElementServiceInterface
      * @return Element|null Element entity
      */
     public function findOneById(int $id): ?Element;
-}
+
+    /**
+     * Can category be deleted?
+     *
+     * @param Category $category Category entity
+     * @return mixed
+     */
+    public function canBeDeleted(Category $category): bool;}

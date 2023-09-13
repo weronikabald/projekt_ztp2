@@ -5,9 +5,11 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Entity\Element;
 use App\Repository\ElementRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -30,7 +32,7 @@ class ElementService implements ElementServiceInterface
      * ElementService constructor.
      *
      * @param ElementRepository $elementRepository Element repository
-     * @param PaginatorInterface $paginator          Paginator
+     * @param PaginatorInterface $paginator Paginator
      */
     public function __construct(ElementRepository $elementRepository, PaginatorInterface $paginator)
     {
@@ -86,5 +88,20 @@ class ElementService implements ElementServiceInterface
     public function findOneById(int $id): ?Element
     {
         return $this->elementRepository->findOneById($id);
+    }
+
+    /**
+     * Can category be deleted?
+     *
+     * @param Category $category
+     *
+     * @return bool
+     * @throws NoResultException|NonUniqueResultException
+     */
+    public function canBeDeleted(Category $category): bool
+    {
+        $result = $this->elementRepository->countByCategory($category);
+
+        return !($result > 0);
     }
 }

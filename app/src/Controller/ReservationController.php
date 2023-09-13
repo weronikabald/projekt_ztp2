@@ -176,7 +176,7 @@ class ReservationController extends AbstractController
         }
 
         return $this->render(
-            'reservation/edit.html.twig',
+            'reservation/accept.html.twig',
             [
                 'form' => $form->createView(),
                 'reservation' => $reservation,
@@ -222,7 +222,7 @@ class ReservationController extends AbstractController
         }
 
         return $this->render(
-            'reservation/edit.html.twig',
+            'reservation/return.html.twig',
             [
                 'form' => $form->createView(),
                 'reservation' => $reservation,

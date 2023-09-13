@@ -191,15 +191,6 @@ class ElementController extends AbstractController
     #[IsGranted('DELETE')]
     public function delete(Request $request, Element $element): Response
     {
-        if (!$this->elementService->canBeDeleted($element)) {
-            $this->addFlash(
-                'warning',
-                $this->translator->trans('message.element_contains_elements')
-            );
-
-            return $this->redirectToRoute('element_index');
-        }
-
         $form = $this->createForm(
             FormType::class,
             $element,

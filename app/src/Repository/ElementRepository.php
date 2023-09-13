@@ -9,6 +9,7 @@ use App\Entity\Category;
 use App\Entity\Element;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -142,5 +143,27 @@ class ElementRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('element');
+    }
+
+    /**
+     * Count elements by category.
+     *
+     * @param Category $category Category
+     *
+     * @return int Number of elements in category
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function countByCategory(Category $category): int
+    {
+        $queryBuilder = $this->createQueryBuilder('element');
+
+        return $queryBuilder->select($queryBuilder->expr()->count('element'))
+            ->where('element.category = :category')
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

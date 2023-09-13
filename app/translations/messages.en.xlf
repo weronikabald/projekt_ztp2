@@ -1,10 +1,278 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="file.ext">
+    <file source-language="en" datatype="plaintext" original="translations.ext">
         <body>
-            <trans-unit id="label_actions">
-                <source>label_actions</source>
+            <trans-unit id="message.created_successfully">
+                <source>message.created_successfully</source>
+                <target>Item created successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.category_contains_elements">
+                <source>message.category_contains_elements</source>
+                <target>Category contains elements!</target>
+            </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Item deleted successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.registered_successfully">
+                <source>message.registered_successfully</source>
+                <target>Registered successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.accepted_successfully">
+                <source>message.accepted_successfully</source>
+                <target>Accepted successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.out_of_stock">
+                <source>message.out_of_stock</source>
+                <target>Out of stock!</target>
+            </trans-unit>
+            <trans-unit id="message.returned_successfully">
+                <source>message.returned_successfully</source>
+                <target>Returned successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
+                <target>Updated successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.passwords_not_match">
+                <source>message.passwords_not_match</source>
+                <target>Passwords do not match!</target>
+            </trans-unit>
+            <trans-unit id="message.password_not_valid">
+                <source>message.password_not_valid</source>
+                <target>Password is not valid!</target>
+            </trans-unit>
+            <trans-unit id="message.form_error">
+                <source>message.form_error</source>
+                <target>There was an error in the form!</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_list">
+                <source>action.back_to_list</source>
+                <target>Back to list</target>
+            </trans-unit>
+            <trans-unit id="title.homepage">
+                <source>title.homepage</source>
+                <target>Homepage</target>
+            </trans-unit>
+            <trans-unit id="title.category_list">
+                <source>title.category_list</source>
+                <target>Category List</target>
+            </trans-unit>
+            <trans-unit id="title.element_list">
+                <source>title.element_list</source>
+                <target>Element List</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_list">
+                <source>title.reservation_list</source>
+                <target>Reservation List</target>
+            </trans-unit>
+            <trans-unit id="title.user_profile">
+                <source>title.user_profile</source>
+                <target>User Profile</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Log Out</target>
+            </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Log In</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="label.nickname">
+                <source>label.nickname</source>
+                <target>Nickname</target>
+            </trans-unit>
+            <trans-unit id="label.email">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label.comment">
+                <source>label.comment</source>
+                <target>Comment</target>
+            </trans-unit>
+            <trans-unit id="label.created_at">
+                <source>label.created_at</source>
+                <target>Created At</target>
+            </trans-unit>
+            <trans-unit id="label.updated_at">
+                <source>label.updated_at</source>
+                <target>Updated At</target>
+            </trans-unit>
+            <trans-unit id="label.actions">
+                <source>label.actions</source>
                 <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="action.view">
+                <source>action.view</source>
+                <target>View</target>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="message.empty_list">
+                <source>message.empty_list</source>
+                <target>The list is empty.</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_accept">
+                <source>title.reservation_accept</source>
+                <target>Accept Reservation</target>
+            </trans-unit>
+            <trans-unit id="action.accept">
+                <source>action.accept</source>
+                <target>Accept</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_details">
+                <source>title.reservation_details</source>
+                <target>Reservation Details</target>
+            </trans-unit>
+            <trans-unit id="label.status">
+                <source>label.status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="action.return">
+                <source>action.return</source>
+                <target>Return</target>
+            </trans-unit>
+            <trans-unit id="message.record_not_found">
+                <source>message.record_not_found</source>
+                <target>Record not found.</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_delete">
+                <source>title.reservation_delete</source>
+                <target>Delete Reservation</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_create">
+                <source>title.reservation_create</source>
+                <target>Create Reservation</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Save</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_return">
+                <source>title.reservation_return</source>
+                <target>Return Reservation</target>
+            </trans-unit>
+            <trans-unit id="action.create">
+                <source>action.create</source>
+                <target>Create</target>
+            </trans-unit>
+            <trans-unit id="label.id">
+                <source>label.id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="label.title">
+                <source>label.title</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="title.element_details">
+                <source>title.element_details</source>
+                <target>Element Details</target>
+            </trans-unit>
+            <trans-unit id="label.stock">
+                <source>label.stock</source>
+                <target>Stock</target>
+            </trans-unit>
+            <trans-unit id="title.element_delete">
+                <source>title.element_delete</source>
+                <target>Delete Element</target>
+            </trans-unit>
+            <trans-unit id="title.element_edit">
+                <source>title.element_edit</source>
+                <target>Edit Element</target>
+            </trans-unit>
+            <trans-unit id="title.element_create">
+                <source>title.element_create</source>
+                <target>Create Element</target>
+            </trans-unit>
+            <trans-unit id="message.log_in">
+                <source>message.log_in</source>
+                <target>Log In</target>
+            </trans-unit>
+            <trans-unit id="message.logged_in_as">
+                <source>message.logged_in_as</source>
+                <target>Logged in as</target>
+            </trans-unit>
+            <trans-unit id="message.please_sign_in">
+                <source>message.please_sign_in</source>
+                <target>Please Sign In</target>
+            </trans-unit>
+            <trans-unit id="title.email">
+                <source>title.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="message.password">
+                <source>message.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="action.sign_in">
+                <source>action.sign_in</source>
+                <target>Sign In</target>
+            </trans-unit>
+            <trans-unit id="title.register">
+                <source>title.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="title.user_passsword_edit">
+                <source>title.user_passsword_edit</source>
+                <target>Edit User Password</target>
+            </trans-unit>
+            <trans-unit id="title.user_details">
+                <source>title.user_details</source>
+                <target>User Details</target>
+            </trans-unit>
+            <trans-unit id="label.firstName">
+                <source>label.firstName</source>
+                <target>First Name</target>
+            </trans-unit>
+            <trans-unit id="label.lastName">
+                <source>label.lastName</source>
+                <target>Last Name</target>
+            </trans-unit>
+            <trans-unit id="action.edit_password">
+                <source>action.edit_password</source>
+                <target>Edit Password</target>
+            </trans-unit>
+            <trans-unit id="title.user_edit">
+                <source>title.user_edit</source>
+                <target>Edit User</target>
+            </trans-unit>
+            <trans-unit id="title.category_details">
+                <source>title.category_details</source>
+                <target>Category Details</target>
+            </trans-unit>
+            <trans-unit id="title.category_delete">
+                <source>title.category_delete</source>
+                <target>Delete Category</target>
+            </trans-unit>
+            <trans-unit id="title.category_edit">
+                <source>title.category_edit</source>
+                <target>Edit Category</target>
+            </trans-unit>
+            <trans-unit id="title.category_create">
+                <source>title.category_create</source>
+                <target>Create Category</target>
+            </trans-unit>
+            <trans-unit id="returned">
+                <source>returned</source>
+                <target>Returned</target>
+            </trans-unit>
+            <trans-unit id="new">
+                <source>new</source>
+                <target>New</target>
+            </trans-unit>
+            <trans-unit id="accepted">
+                <source>accepted</source>
+                <target>Accepted</target>
             </trans-unit>
         </body>
     </file>

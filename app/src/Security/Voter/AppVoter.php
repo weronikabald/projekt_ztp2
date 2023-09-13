@@ -32,11 +32,23 @@ class AppVoter extends Voter
     public const DELETE = 'DELETE';
 
     /**
+     * Accept permission.
+     *
+     * @const string
+     */
+    public const ACCEPT = 'ACCEPT';
+
+    /**
      * Create permission.
      *
      * @const string
      */
     public const CREATE = 'CREATE';
+
+    /**
+     * Return permission.
+     */
+    public const RETURN = 'RETURN';
 
     /**
      * Security helper.
@@ -63,7 +75,7 @@ class AppVoter extends Voter
      */
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE]);
+        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE, self::ACCEPT, self::RETURN]);
     }
 
     /**
@@ -92,6 +104,10 @@ class AppVoter extends Voter
                 return $this->canView();
             case self::DELETE:
                 return $this->canDelete();
+            case self::ACCEPT:
+                return $this->canAccept();
+            case self::RETURN:
+                return $this->canReturn();
         }
 
         return false;
@@ -133,6 +149,26 @@ class AppVoter extends Voter
      * @return bool Result
      */
     private function canCreate(): bool
+    {
+        return $this->security->isGranted('ROLE_ADMIN');
+    }
+
+    /**
+     * Checks if user can accept.
+     *
+     * @return bool Result
+     */
+    private function canAccept(): bool
+    {
+        return $this->security->isGranted('ROLE_ADMIN');
+    }
+
+    /**
+     * Checks if user can return.
+     *
+     * @return bool Result
+     */
+    private function canReturn(): bool
     {
         return $this->security->isGranted('ROLE_ADMIN');
     }

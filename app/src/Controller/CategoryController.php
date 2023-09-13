@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Service\CategoryServiceInterface;
+use App\Service\ElementServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -26,6 +27,11 @@ class CategoryController extends AbstractController
      * Category service.
      */
     private CategoryServiceInterface $categoryService;
+
+    /**
+     * Element service.
+     */
+    private ElementServiceInterface $elementService;
 
     /**
      * Translator.
@@ -191,7 +197,7 @@ class CategoryController extends AbstractController
     #[IsGranted('DELETE')]
     public function delete(Request $request, Category $category): Response
     {
-        if (!$this->categoryService->canBeDeleted($category)) {
+        if (!$this->elementService->canBeDeleted($category)) {
             $this->addFlash(
                 'warning',
                 $this->translator->trans('message.category_contains_elements')

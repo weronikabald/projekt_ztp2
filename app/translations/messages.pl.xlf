@@ -6,6 +6,147 @@
                 <source>label_actions</source>
                 <target>Akcje</target>
             </trans-unit>
+            <trans-unit id="message.created_successfully">
+                <source>message.created_successfully</source>
+                <target>Element został pomyślnie utworzony!</target>
+            </trans-unit>
+            <trans-unit id="message.category_contains_elements">
+                <source>message.category_contains_elements</source>
+                <target>Kategoria zawiera elementy!</target>
+            </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Element został pomyślnie usunięty!</target>
+            </trans-unit>
+            <trans-unit id="message.element_contains_elements">
+                <source>message.element_contains_elements</source>
+                <target>Element zawiera pod-elementy!</target>
+            </trans-unit>
+            <trans-unit id="message.registered_successfully">
+                <source>message.registered_successfully</source>
+                <target>Zarejestrowano pomyślnie!</target>
+            </trans-unit>
+            <trans-unit id="message.accepted_successfully">
+                <source>message.accepted_successfully</source>
+                <target>Zaakceptowano pomyślnie!</target>
+            </trans-unit>
+
+            <trans-unit id="message.out_of_stock">
+                <source>message.out_of_stock</source>
+                <target>Brak w magazynie!</target>
+            </trans-unit>
+            <trans-unit id="message.returned_successfully">
+                <source>message.returned_successfully</source>
+                <target>Zwrócono pomyślnie!</target>
+            </trans-unit>
+            <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
+                <target>Pomyślnie zaktualizowano!</target>
+            </trans-unit>
+            <trans-unit id="message.passwords_not_match">
+                <source>message.passwords_not_match</source>
+                <target>Hasła nie są takie same!</target>
+            </trans-unit>
+            <trans-unit id="message.password_not_valid">
+                <source>message.password_not_valid</source>
+                <target>Hasło jest nieprawidłowe!</target>
+            </trans-unit>
+            <trans-unit id="message.form_error">
+                <source>message.form_error</source>
+                <target>W formularzu wystąpił błąd!</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_list">
+                <source>action.back_to_list</source>
+                <target>Wróć do listy</target>
+            </trans-unit>
+            <trans-unit id="title.homepage">
+                <source>title.homepage</source>
+                <target>Strona główna</target>
+            </trans-unit>
+            <trans-unit id="title.category_list">
+                <source>title.category_list</source>
+                <target>Lista kategorii</target>
+            </trans-unit>
+            <trans-unit id="title.element_list">
+                <source>title.element_list</source>
+                <target>Lista elementów</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_list">
+                <source>title.reservation_list</source>
+                <target>Lista rezerwacji</target>
+            </trans-unit>
+            <trans-unit id="title.user_profile">
+                <source>title.user_profile</source>
+                <target>Profil użytkownika</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Wyloguj się</target>
+            </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Zarejestruj się</target>
+            </trans-unit>
+            <trans-unit id="label.nickname">
+                <source>label.nickname</source>
+                <target>Pseudonim</target>
+            </trans-unit>
+            <trans-unit id="label.email">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label.comment">
+                <source>label.comment</source>
+                <target>Komentarz</target>
+            </trans-unit>
+            <trans-unit id="label.created_at">
+                <source>label.created_at</source>
+                <target>Utworzono</target>
+            </trans-unit>
+            <trans-unit id="label.updated_at">
+                <source>label.updated_at</source>
+                <target>Zaktualizowano</target>
+            </trans-unit>
+            <trans-unit id="label.actions">
+                <source>label.actions</source>
+                <target>Akcje</target>
+            </trans-unit>
+            <trans-unit id="action.view">
+                <source>action.view</source>
+                <target>Pokaż</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="message.empty_list">
+                <source>message.empty_list</source>
+                <target>Lista jest pusta.</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_accept">
+                <source>title.reservation_accept</source>
+                <target>Zaakceptuj rezerwację</target>
+            </trans-unit>
+            <trans-unit id="action.accept">
+                <source>action.accept</source>
+                <target>Zaakceptuj</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_details">
+                <source>title.reservation_details</source>
+                <target>Szczegóły rezerwacji</target>
+            </trans-unit>
+            <trans-unit id="label.status">
+                <source>label.status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="action.return">
+                <source>action.return</source>
+                <target>Zwróć</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
