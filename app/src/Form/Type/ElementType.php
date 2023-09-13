@@ -7,8 +7,10 @@ namespace App\Form\Type;
 
 use App\Entity\Category;
 use App\Entity\Element;
+use PHPUnit\Framework\Constraint\GreaterThan;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -57,6 +59,20 @@ class ElementType extends AbstractType
                 'required' => true,
                 'placeholder' => 'label.none',
             ]
+        );
+
+        $builder->add(
+            'stock',
+            NumberType::class,
+            [
+                'label' => 'label.stock',
+                'required' => true,
+                'attr' => ['max_length' => 64],
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ]
+
         );
     }
 

@@ -112,7 +112,7 @@ class ReservationController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.created_successfully')
+                $this->translator->trans('message.reservation_created_successfully')
             );
 
             return $this->redirectToRoute('element_show', ['id' => $elementId]);

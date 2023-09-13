@@ -294,6 +294,14 @@
                 <source>label.category</source>
                 <target>Category</target>
             </trans-unit>
+            <trans-unit id="action.create_reservation">
+                <source>action.create_reservation</source>
+                <target>Create Reservation</target>
+            </trans-unit>
+            <trans-unit id="action.reservation_created_successfully">
+                <source>action.reservation_created_successfully</source>
+                <target>Reservation waits for confirmation</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
