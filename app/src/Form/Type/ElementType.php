@@ -71,6 +71,7 @@ class ElementType extends AbstractType
                     new NotBlank(),
                 ],
             ]
+
         );
     }
 
