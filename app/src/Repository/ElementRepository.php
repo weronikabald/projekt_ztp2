@@ -134,18 +134,6 @@ class ElementRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get or create new query builder.
-     *
-     * @param QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('element');
-    }
-
-    /**
      * Count elements by category.
      *
      * @param Category $category Category
@@ -165,5 +153,17 @@ class ElementRepository extends ServiceEntityRepository
             ->setParameter('category', $category)
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('element');
     }
 }

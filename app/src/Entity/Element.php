@@ -11,7 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
  * Class Element.
  *
@@ -169,7 +168,6 @@ class Element
         $this->slug = $slug;
     }
 
-
     /**
      * Getter for category.
      *
@@ -209,5 +207,4 @@ class Element
     {
         $this->stock = $stock;
     }
-
 }

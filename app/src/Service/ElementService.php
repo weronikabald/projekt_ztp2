@@ -31,8 +31,8 @@ class ElementService implements ElementServiceInterface
     /**
      * ElementService constructor.
      *
-     * @param ElementRepository $elementRepository Element repository
-     * @param PaginatorInterface $paginator Paginator
+     * @param ElementRepository  $elementRepository Element repository
+     * @param PaginatorInterface $paginator         Paginator
      */
     public function __construct(ElementRepository $elementRepository, PaginatorInterface $paginator)
     {
@@ -93,9 +93,10 @@ class ElementService implements ElementServiceInterface
     /**
      * Can category be deleted?
      *
-     * @param Category $category
+     * @param Category $category Category entity
      *
-     * @return bool
+     * @return bool Can be deleted?
+     *
      * @throws NoResultException|NonUniqueResultException
      */
     public function canBeDeleted(Category $category): bool

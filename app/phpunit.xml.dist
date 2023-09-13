@@ -10,6 +10,10 @@
             <file>src/Kernel.php</file>
             <directory>src/DataFixtures</directory>
         </exclude>
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="true" showOnlySummary="false"/>
+            <html outputDirectory="report"/>
+        </report>
     </coverage>
     <php>
         <ini name="error_reporting" value="-1"/>
@@ -30,12 +34,11 @@
     <!-- Run `composer require symfony/panther` before enabling this extension -->
     <!--
       <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
           <extension class="Symfony\Component\Panther\ServerExtension" />
       </extensions>
       -->
-    <!-- -->
     <extensions>
         <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
     </extensions>
-    <!-- -->
 </phpunit>

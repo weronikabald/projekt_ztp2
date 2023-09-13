@@ -49,7 +49,7 @@ class CategoryControllerTest extends WebTestCase
     public function testIndexRouteAnonymousUser(): void
     {
         // given
-        $expectedStatusCode = 302;
+        $expectedStatusCode = 200;
 
         // when
         $this->httpClient->request('GET', self::TEST_ROUTE);
@@ -147,6 +147,7 @@ class CategoryControllerTest extends WebTestCase
         $categoryRepository->save($testCategory);
         $testCategoryId = $testCategory->getId();
         $expectedNewCategoryTitle = 'test category edit';
+        $expectedNewCategorySlug = 'test-category-edit';
 
         $this->httpClient->request(
             'GET', self::TEST_ROUTE.'/'.

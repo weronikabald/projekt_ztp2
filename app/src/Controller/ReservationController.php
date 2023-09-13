@@ -36,7 +36,7 @@ class ReservationController extends AbstractController
      * ReservationController constructor.
      *
      * @param ReservationServiceInterface $reservationService Reservation service
-     * @param TranslatorInterface $translator Translator
+     * @param TranslatorInterface         $translator         Translator
      */
     public function __construct(ReservationServiceInterface $reservationService, TranslatorInterface $translator)
     {
@@ -129,7 +129,7 @@ class ReservationController extends AbstractController
     /**
      * Accept action.
      *
-     * @param Request $request HTTP request
+     * @param Request     $request     HTTP request
      * @param Reservation $reservation Reservation entity
      *
      * @return Response HTTP response
@@ -154,7 +154,6 @@ class ReservationController extends AbstractController
         $element = $reservation->getElement();
         $elementStock = $element->getStock();
 
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && $elementStock > 0) {
             $this->reservationService->accept($reservation);
@@ -167,6 +166,7 @@ class ReservationController extends AbstractController
             return $this->redirectToRoute('reservation_index');
         }
         if ($elementStock <= 0) {
+            $reservation->setStatus('out_of_stock');
             $this->addFlash(
                 'warning',
                 $this->translator->trans('message.out_of_stock')
@@ -187,7 +187,7 @@ class ReservationController extends AbstractController
     /**
      * Return action.
      *
-     * @param Request $request HTTP request
+     * @param Request     $request     HTTP request
      * @param Reservation $reservation Reservation entity
      *
      * @return Response HTTP response
@@ -233,7 +233,7 @@ class ReservationController extends AbstractController
     /**
      * Delete action.
      *
-     * @param Request $request HTTP request
+     * @param Request     $request     HTTP request
      * @param Reservation $reservation Reservation entity
      *
      * @return Response HTTP response

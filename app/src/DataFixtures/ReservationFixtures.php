@@ -5,7 +5,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Enum\ReservationStatusEnum;
 use App\Entity\Reservation;
 use App\Entity\Element;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

@@ -43,6 +43,8 @@ interface ElementServiceInterface
      * Can category be deleted?
      *
      * @param Category $category Category entity
+     *
      * @return mixed
      */
-    public function canBeDeleted(Category $category): bool;}
+    public function canBeDeleted(Category $category): bool;
+}

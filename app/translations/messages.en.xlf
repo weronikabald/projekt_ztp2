@@ -286,6 +286,14 @@
                 <source>label.none</source>
                 <target>Choose</target>
             </trans-unit>
+            <trans-unit id="out_of_stock">
+                <source>out_of_stock</source>
+                <target>Out of Stock</target>
+            </trans-unit>
+            <trans-unit id="label.category">
+                <source>label.category</source>
+                <target>Category</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

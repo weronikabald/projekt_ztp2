@@ -42,7 +42,7 @@ class HomepageControllerTest extends WebTestCase
     public function testIndexRouteAnonymousUser(): void
     {
         // given
-        $expectedStatusCode = 302;
+        $expectedStatusCode = 200;
 
         // when
         $this->httpClient->request('GET', self::TEST_ROUTE);

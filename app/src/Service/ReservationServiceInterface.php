@@ -26,7 +26,7 @@ interface ReservationServiceInterface
      * Save entity.
      *
      * @param Reservation $reservation Reservation entity
-     * @param int $elementId Element id
+     * @param int         $elementId   Element id
      */
     public function save(Reservation $reservation, int $elementId): void;
 
@@ -53,6 +53,8 @@ interface ReservationServiceInterface
 
     /**
      * Return reservation.
+     *
+     * @param Reservation $reservation Reservation entity
      */
     public function returnReservation(Reservation $reservation): void;
 }

@@ -34,9 +34,9 @@ class ReservationService implements ReservationServiceInterface
     /**
      * ReservationService constructor.
      *
-     * @param ReservationRepository  $reservationRepository Reservation repository
-     * @param PaginatorInterface $paginator         Paginator
-     * @param ElementRepository     $elementRepository    Element repository
+     * @param ReservationRepository $reservationRepository Reservation repository
+     * @param PaginatorInterface    $paginator             Paginator
+     * @param ElementRepository     $elementRepository     Element repository
      */
     public function __construct(ReservationRepository $reservationRepository, PaginatorInterface $paginator, ElementRepository $elementRepository)
     {
@@ -65,7 +65,7 @@ class ReservationService implements ReservationServiceInterface
      * Save entity.
      *
      * @param Reservation $reservation Reservation entity
-     * @param int     $elementId  Element id
+     * @param int         $elementId   Element id
      */
     public function save(Reservation $reservation, int $elementId): void
     {
@@ -102,6 +102,13 @@ class ReservationService implements ReservationServiceInterface
      */
     public function accept(Reservation $reservation): void
     {
+        $stock = $reservation->getElement()->getStock();
+        if ($stock <= 0) {
+            $reservation->setStatus('out_of_stock');
+            $this->reservationRepository->save($reservation);
+
+            return;
+        }
         $reservation->setStatus('accepted');
         $element = $reservation->getElement();
         $elementStock = $element->getStock();
@@ -111,6 +118,8 @@ class ReservationService implements ReservationServiceInterface
 
     /**
      * Return reservation.
+     *
+     * @param Reservation $reservation Reservation entity
      */
     public function returnReservation(Reservation $reservation): void
     {
@@ -120,5 +129,4 @@ class ReservationService implements ReservationServiceInterface
         $element->setStock($elementStock + 1);
         $this->reservationRepository->save($reservation);
     }
-
 }
