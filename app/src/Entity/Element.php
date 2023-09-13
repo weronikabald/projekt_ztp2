@@ -76,6 +76,7 @@ class Element
      */
     #[ORM\Column(type: 'integer', nullable: true)]
     #[Assert\Type('integer')]
+    #[Assert\GreaterThanOrEqual(0)]
     private ?int $stock = null;
 
     /**

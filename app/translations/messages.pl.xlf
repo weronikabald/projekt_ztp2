@@ -303,6 +303,14 @@
                 <source>label.category</source>
                 <target>Kategoria</target>
             </trans-unit>
+            <trans-unit id="action.create_reservation">
+                <source>action.create_reservation</source>
+                <target>Rezerwuj</target>
+            </trans-unit>
+            <trans-unit id="message.reservation_created_successfully">
+                <source>message.reservation_created_successfully</source>
+                <target>Rezerwacja oczekuje na potwierdzenie przez Administratora</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
