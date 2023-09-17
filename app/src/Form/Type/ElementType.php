@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
@@ -39,9 +40,15 @@ class ElementType extends AbstractType
             [
                 'label' => 'label.title',
                 'required' => true,
-                'attr' => ['max_length' => 64],
+                'attr' => ['max_length' => 64, 'min_length' => 3],
                 'constraints' => [
                     new NotBlank(),
+                    new Length(
+                        [
+                            'min' => 3,
+                            'max' => 64,
+                        ]
+                    ),
                 ],
             ]
         );
@@ -66,7 +73,6 @@ class ElementType extends AbstractType
             [
                 'label' => 'label.stock',
                 'required' => true,
-                'attr' => ['max_length' => 64],
                 'constraints' => [
                     new NotBlank(),
                 ],

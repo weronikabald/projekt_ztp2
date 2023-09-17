@@ -103,7 +103,6 @@ class ElementController extends AbstractController
         name: 'element_create',
         methods: 'GET|POST',
     )]
-    #[IsGranted('CREATE')]
     public function create(Request $request): Response
     {
         $element = new Element();
@@ -141,7 +140,7 @@ class ElementController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT'
     )]
-    #[IsGranted('EDIT')]
+    #[IsGranted('EDIT', subject: 'element')]
     public function edit(Request $request, Element $element): Response
     {
         $form = $this->createForm(
@@ -188,7 +187,7 @@ class ElementController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|DELETE'
     )]
-    #[IsGranted('DELETE')]
+    #[IsGranted('DELETE', subject: 'element')]
     public function delete(Request $request, Element $element): Response
     {
         $form = $this->createForm(

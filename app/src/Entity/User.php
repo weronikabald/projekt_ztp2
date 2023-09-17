@@ -34,6 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 64)]
     #[Assert\Type('string')]
     #[Assert\Length(min: 3, max: 64)]
+    #[Assert\NotBlank]
     private ?string $firstName = null;
 
     /**
@@ -42,6 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 64)]
     #[Assert\Type('string')]
     #[Assert\Length(min: 3, max: 64)]
+    #[Assert\NotBlank]
     private ?string $lastName = null;
 
     /**
@@ -50,6 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Email]
+    #[Assert\Length(min: 3, max: 180)]
     private ?string $email;
 
     /**
@@ -58,6 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var array<int, string>
      */
     #[ORM\Column(type: 'json')]
+    #[Assert\Type('array')]
     private array $roles = [];
 
     /**

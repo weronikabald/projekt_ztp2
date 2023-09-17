@@ -31,6 +31,9 @@ class Reservation
      * Comment.
      */
     #[ORM\Column(type: 'text')]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3)]
     private ?string $comment = null;
 
     /**
@@ -38,6 +41,7 @@ class Reservation
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
+    #[Assert\NotBlank]
     private ?string $email = null;
 
     /**
@@ -45,6 +49,8 @@ class Reservation
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $nickname = null;
 
     /**
@@ -78,6 +84,7 @@ class Reservation
      * Status of reservation.
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Type('string')]
     private ?string $status = null;
 
     /**

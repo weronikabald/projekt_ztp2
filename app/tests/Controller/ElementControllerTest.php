@@ -69,7 +69,7 @@ class ElementControllerTest extends WebTestCase
     {
         // given
         $expectedStatusCode = 200;
-        $adminUser = $this->createUser([UserRole::ROLE_ADMIN->value, ], 'test_element__admin@example.com');
+        $adminUser = $this->createUser([UserRole::ROLE_ADMIN->value,], 'test_element__admin@example.com');
         $this->httpClient->loginUser($adminUser);
 
         // when
@@ -98,7 +98,7 @@ class ElementControllerTest extends WebTestCase
         $elementRepository->save($expectedElement);
 
         // when
-        $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$expectedElement->getId());
+        $this->httpClient->request('GET', self::TEST_ROUTE . '/' . $expectedElement->getId());
         $result = $this->httpClient->getResponse();
 
         // then
@@ -117,7 +117,7 @@ class ElementControllerTest extends WebTestCase
         $user = $this->createUser([UserRole::ROLE_ADMIN->value], 'test_element_create@example.com');
         $this->httpClient->loginUser($user);
 
-        $this->httpClient->request('GET', self::TEST_ROUTE.'/create');
+        $this->httpClient->request('GET', self::TEST_ROUTE . '/create');
 
         // when
         $this->httpClient->submitForm(
@@ -150,17 +150,21 @@ class ElementControllerTest extends WebTestCase
         $elementRepository->save($testElement);
         $testElementId = $testElement->getId();
         $expectedNewElementTitle = 'test element edit';
-        $expectedNewElementSlug = 'test-element-edit';
 
         $this->httpClient->request(
-            'GET', self::TEST_ROUTE.'/'.
-            $testElementId.'/edit'
+            'GET', self::TEST_ROUTE . '/' .
+            $testElementId . '/edit'
         );
 
         // when
         $this->httpClient->submitForm(
             'Edytuj',
-            ['element' => ['title' => $expectedNewElementTitle]]
+            [
+                'element' => [
+                    'title' => $expectedNewElementTitle,
+                    'stock' => '1',
+                    'category' => $testElement->getCategory()->getId(),
+                ]]
         );
 
         // then
@@ -188,7 +192,7 @@ class ElementControllerTest extends WebTestCase
         $elementRepository->save($testElement);
         $testElementId = $testElement->getId();
 
-        $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$testElementId.'/delete');
+        $this->httpClient->request('GET', self::TEST_ROUTE . '/' . $testElementId . '/delete');
 
         // when
         $this->httpClient->submitForm(

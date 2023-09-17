@@ -102,10 +102,14 @@ class ReservationController extends AbstractController
     )]
     public function create(Request $request): Response
     {
+        $elementId = $request->query->getInt('id');
+        if (!$elementId) {
+            return $this->redirectToRoute('element_index');
+        }
+
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-        $elementId = $request->query->getInt('id');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->reservationService->save($reservation, $elementId);
@@ -140,7 +144,7 @@ class ReservationController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT',
     )]
-    #[IsGranted('ACCEPT')]
+    #[IsGranted('ACCEPT', subject: 'reservation')]
     public function accept(Request $request, Reservation $reservation): Response
     {
         $form = $this->createForm(FormType::class, $reservation, [
@@ -198,7 +202,7 @@ class ReservationController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT',
     )]
-    #[IsGranted('RETURN')]
+    #[IsGranted('RETURN', subject: 'reservation')]
     public function returnReservation(Request $request, Reservation $reservation): Response
     {
         $form = $this->createForm(FormType::class, $reservation, [
@@ -244,7 +248,7 @@ class ReservationController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|DELETE',
     )]
-    #[IsGranted('DELETE')]
+    #[IsGranted('DELETE', subject: 'reservation')]
     public function delete(Request $request, Reservation $reservation): Response
     {
         $form = $this->createForm(FormType::class, $reservation, [
