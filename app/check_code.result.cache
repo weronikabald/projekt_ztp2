@@ -1,0 +1,24 @@
+
+Found 0 of 39 files that can be fixed in 0.933 seconds, 18.000 MB memory used
+ ----------- ---------- ------------------------------------------ ------------------------------------------ 
+  State       Domain     Id                                         Message Preview (en)                      
+ ----------- ---------- ------------------------------------------ ------------------------------------------ 
+   missing    messages   message.reservation_created_successfully   message.reservation_created_successfully  
+ ----------- ---------- ------------------------------------------ ------------------------------------------ 
+
+ ------- -------- ---- ---------------------- ------------------------------- 
+  State   Domain   Id   Message Preview (pl)   Fallback Message Preview (en)  
+ ------- -------- ---- ---------------------- ------------------------------- 
+
+[notice] Migrating up to DoctrineMigrations\Version20230917170059
+[notice] finished in 180.8ms, used 22M memory, 1 migrations executed, 7 sql queries
+
+ [OK] Successfully migrated to version : DoctrineMigrations\Version20230917170059                                       
+
+
+
+   > purging database
+   > loading App\DataFixtures\CategoryFixtures
+   > loading App\DataFixtures\ElementFixtures
+   > loading App\DataFixtures\UserFixtures
+   > loading App\DataFixtures\ReservationFixtures
