@@ -1,3 +1,19 @@
+# Opis projektu
+
+Internetowa wypożyczalnia (książek, płyt, etc.)
+
+* użytkownicy: administrator mający możliwość tworzenia, edycji i usuwania treści na stronie oraz użytkownik niezalogowany, mający możliwość przeglądania treści na stronie i wypożyczania zasobów,
+* CRUD dla elementów katalogu (książki, muzyka, etc.),
+* CRUD dla kategorii, łączenie kategorii z elementami,
+* wyświetlanie listy elementów dla danej kategorii,
+* lista rekordów od najnowszego do najstarszego z paginacją po 10 rekordów na stronie,
+* administrator (logowanie, zmiana hasła, zmiana danych administratora),
+* niezalogowani użytkownicy mają możliwość zarezerwowania zasobu (formularz zawiera adres e-mail użytkownika, nick oraz treść komentarza),
+* administrator ma możliwość odrzucenia rezerwacji, zatwierdzenia, czyli wypożyczenia (wtedy stan zasobu zmniejsza się lub staje się niedostępny), przyjęcia zwrotu.
+
+# Projekt bazy danych
+![rental](https://github.com/weronikabald/projekt_ztp2/assets/134999332/3cd3ca80-9c4f-48a4-8011-511405bc1291)
+
 # Docker Symfony Starter Kit
 
 Starter kit is based on [The perfect kit starter for a Symfony 4 project with Docker and PHP 7.2](https://medium.com/@romaricp/the-perfect-kit-starter-for-a-symfony-4-project-with-docker-and-php-7-2-fda447b6bca1).
